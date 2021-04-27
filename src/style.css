@@ -1,0 +1,24 @@
+:root{
+    --dark-gray: #0C0C0E;
+    --gray: #1E1F22;
+    --light-gray: #60626C;
+    --red: #F24646;
+    --green: #2BEBC8;
+    --purp: #6746ED;
+    --purp-blu: #4657ed;
+    --white : #fff;
+
+    --secondary-gray: #151618;
+    --secondary-black: #000000;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    min-height: 100%;
+    background-color: var(--gray);
+
+}
