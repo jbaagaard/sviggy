@@ -6,19 +6,6 @@ type Point = [number,number];
 type PointList = Point[];
 type Color = [number,number,number];
 
-interface LayeredPeaksProps {
-    count: number,
-    balance: number,
-    complexity: number,
-    volatility: number,
-    width:number,
-    height:number,
-    fill?: boolean,
-    color: string;
-    color2?: string;
-    position: Position;
-}
-
 function roundTo2(x:number){return Math.round(x * 100) / 100}
 function percentageOf(x:number,x2:number){return x/x2*100}
 
@@ -44,19 +31,59 @@ function calculateColor(index:number, amount:number, color1:string, color2:strin
     for(let i = 0;i<color.length;i++){
         const lowest = Math.min(c1[i],c2[1]);
         const diffrence = Math.abs(c1[i]-c2[1])
-        color[i] = Math.round((diffrence/amount*index) + lowest);
+        color[i] = Math.round((diffrence/amount*(index+1)) + lowest);
     }
     console.log(color)
     return rgbToHex(color)
 }
 
-const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, width, height}: LayeredPeaksProps) => {
+function transformPointArray(pointList:PointList, position:Position){
+    if(position == "top")
+        return pointList;
+    if(position == "bottom")
+        return PointArrayFlipXAxis(pointList)
+    if(position == "left")
+        return PointArrayFlip90Deg(pointList)
+    else
+        return PointArrayFlip90Deg(PointArrayFlipXAxis(pointList))
+}
+
+function PointArrayFlipXAxis(pointList:PointList){
+    const newPointList:PointList = [];
+    pointList.map(p=>{
+        newPointList.push([p[0],((p[1]-50)*-1)+50])
+    })
+    return newPointList;
+}
+
+function PointArrayFlip90Deg(pointList:PointList){
+    const newPointList:PointList = [];
+    pointList.map(p=>{
+        newPointList.push([p[1],p[0]])
+    })
+    return newPointList;
+}
+
+interface LayeredPeaksProps {
+    count: number,
+    balance: number,
+    complexity: number,
+    volatility: number,
+    width:number,
+    height:number,
+    fill?: boolean,
+    color: string;
+    color2?: string;
+    position: Position;
+}
+
+const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, width, height, position}: LayeredPeaksProps) => {
     const pointLists:PointList[] = []
-    for (let i = 0; i < count; i++) {
+    for (let i = 1; i < count+1; i++) {
         const pointList: PointList = [[0,(i*balance)]];
 
         for (let i2 = 0; i2 < complexity; i2++) {
-            let pointX = ((Math.random() * volatility)/width*100) + ((i*balance)/height*100);
+            let pointX = ((Math.random() * volatility)-(volatility/2)) + ((i*balance));
             pointList.push([percentageOf((i2+1),(complexity+1)),pointX])
         }
         pointList.push([100,(i*balance)]);
@@ -81,26 +108,12 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
         return pathString;
     }
 
-    function PointArrayFlipXAxis(pointList:PointList){
-        const newPointList:PointList = [];
-        pointList.map(p=>{
-            newPointList.push([p[0],((p[1]-50)*-1)+50])
-        })
-        return newPointList;
-    }
 
-    function PointArrayFlip90Deg(pointList:PointList){
-        const newPointList:PointList = [];
-        pointList.map(p=>{
-            newPointList.push([p[1],p[0]])
-        })
-        return newPointList;
-    }
 
     return (
         <SvgComponent color={color} viewBox={`0 0 ${width} ${height}`}>
             {pointLists.reverse().map((pointList,index) =>
-                <polygon points={pointArrayToPolygonString(PointArrayFlipXAxis(pointList))} fill={colors(index)}/>
+                <polygon points={pointArrayToPolygonString(transformPointArray(pointList,position))} fill={colors(index)}/>
             )}
         </SvgComponent>
     )

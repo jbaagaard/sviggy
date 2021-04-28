@@ -10,7 +10,7 @@ function App() {
   return (
     <S.Wrapper>
         <S.SvgWrapper>
-            <LayeredPeaks color={red} color2={gray} balance={10} complexity={10} count={3} volatility={25} width={200} height={100} position={"bottom"}/>
+            <LayeredPeaks color={red} color2={gray} balance={2} complexity={10} count={20} volatility={15} width={200} height={100} position={"right"}/>
         </S.SvgWrapper>
     </S.Wrapper>
   );
