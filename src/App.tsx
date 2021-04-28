@@ -10,8 +10,8 @@ function App() {
     return (
         <S.Wrapper>
             <S.SvgWrapper>
-                <LayeredPeaks color={red}  color2={purp}
-                              balance={10} complexity={10} count={7} volatility={15}
+                <LayeredPeaks color={red}  color2={purp} draw={"stroke"} strokeWidth={2}
+                              balance={2} complexity={100} count={30} volatility={2}
                               width={1389} height={703} position={"bottom"}/>
             </S.SvgWrapper>
         </S.Wrapper>

@@ -2,6 +2,7 @@ import {SvgComponent} from "../SvgComponent";
 
 
 type Position = "bottom"|"top"|"left"|"right";
+type Draw = "stroke"|"fill"
 type Point = [number,number];
 type PointList = Point[];
 type Color = [number,number,number];
@@ -74,9 +75,11 @@ interface LayeredPeaksProps {
     color: string;
     color2?: string;
     position: Position;
+    draw: Draw;
+    strokeWidth?:number
 }
 
-const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, width, height, position}: LayeredPeaksProps) => {
+const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, width, height, position, draw, strokeWidth}: LayeredPeaksProps) => {
     const pointLists:PointList[] = []
     for (let i = 1; i < count+1; i++) {
         const pointList: PointList = [[0,(i*balance)]];
@@ -110,9 +113,14 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
 
 
     return (
-        <SvgComponent color={color} viewBox={`0 0 ${width} ${height}`}>
+        <SvgComponent color={"rgba(0,0,0,0)"} viewBox={`0 0 ${width} ${height}`}>
             {pointLists.reverse().map((pointList,index) =>
-                <polygon points={pointArrayToPolygonString(transformPointArray(pointList,position))} fill={colors(index)}/>
+                <polygon points={pointArrayToPolygonString(transformPointArray(pointList,position))}
+                         fill={(draw == "fill"? colors(index):undefined)}
+                         stroke={(draw == "stroke"? colors(index):undefined)}
+                         strokeWidth={(strokeWidth? strokeWidth : 1)}
+
+                />
             )}
         </SvgComponent>
     )
