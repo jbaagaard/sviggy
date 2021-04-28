@@ -26,14 +26,14 @@ function hexToRgb(hex:string):Color|null {
 function calculateColor(index:number, amount:number, color1:string, color2:string){
     const c1 = hexToRgb(color1)!;
     const c2 = hexToRgb(color2)!;
-
     let color:Color = [0,0,0]
-    for(let i = 0;i<color.length;i++){
-        const lowest = Math.min(c1[i],c2[1]);
-        const diffrence = Math.abs(c1[i]-c2[1])
-        color[i] = Math.round((diffrence/amount*(index+1)) + lowest);
+    for(let i = 0; i < color.length; i++){
+        const lowest = Math.min(c1[i], c2[1]);
+        const diffrence = c1[i] - c2[i]
+        console.log(diffrence);
+        color[i] = Math.round(c2[i] + ((diffrence / amount) * (index)));
     }
-    console.log(color)
+    console.table(color)
     return rgbToHex(color)
 }
 
@@ -71,7 +71,6 @@ interface LayeredPeaksProps {
     volatility: number,
     width:number,
     height:number,
-    fill?: boolean,
     color: string;
     color2?: string;
     position: Position;
@@ -83,10 +82,10 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
         const pointList: PointList = [[0,(i*balance)]];
 
         for (let i2 = 0; i2 < complexity; i2++) {
-            let pointX = ((Math.random() * volatility)-(volatility/2)) + ((i*balance));
-            pointList.push([percentageOf((i2+1),(complexity+1)),pointX])
+            let pointX = ((Math.random() * volatility) - (volatility / 2)) + ((i * balance));
+            pointList.push([percentageOf((i2 + 1),(complexity + 1)),pointX])
         }
-        pointList.push([100,(i*balance)]);
+        pointList.push([100,(i * balance)]);
         pointList.push([100,0]);
         pointList.push([0,0]);
         pointLists.push(pointList);
@@ -103,7 +102,7 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
     function pointArrayToPolygonString(pointList:PointList){
         let pathString = "";
         pointList.map((p)=>{
-            pathString = pathString + roundTo2(p[0]*width/100) + ","+roundTo2(p[1]*height/100)+" ";
+            pathString = pathString + roundTo2(p[0] * width/100) + "," + roundTo2(p[1] * height / 100) + " ";
         });
         return pathString;
     }
