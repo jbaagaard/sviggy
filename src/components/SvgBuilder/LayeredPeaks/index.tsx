@@ -29,12 +29,10 @@ function calculateColor(index:number, amount:number, color1:string, color2:strin
     const c2 = hexToRgb(color2)!;
     let color:Color = [0,0,0]
     for(let i = 0; i < color.length; i++){
-        const lowest = Math.min(c1[i], c2[1]);
-        const diffrence = c1[i] - c2[i]
-        console.log(diffrence);
-        color[i] = Math.round(c2[i] + ((diffrence / amount) * (index)));
+        const difference = c1[i] - c2[i]
+        const differncePer = (difference / Math.max((amount-1),1))
+        color[i] = Math.round(c2[i] + (differncePer * (index)));
     }
-    console.table(color)
     return rgbToHex(color)
 }
 
@@ -65,6 +63,15 @@ function PointArrayFlip90Deg(pointList:PointList){
     return newPointList;
 }
 
+function pointArrayToPolygonString(pointList:PointList, height:number, width:number){
+    let pathString = "";
+    pointList.map((p)=>{
+        pathString = pathString + roundTo2(p[0] * width/100) + "," + roundTo2(p[1] * height / 100) + " ";
+    });
+    return pathString;
+}
+
+
 interface LayeredPeaksProps {
     count: number,
     balance: number,
@@ -89,10 +96,13 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
             pointList.push([percentageOf((i2 + 1),(complexity + 1)),pointX])
         }
         pointList.push([100,(i * balance)]);
-        pointList.push([100,0]);
-        pointList.push([0,0]);
+            pointList.push([100,0]);
+            pointList.push([0,0]);
+
+
         pointLists.push(pointList);
     }
+
     const colors = (index:number) => {
         if(!!color2)
         {
@@ -102,29 +112,18 @@ const LayeredPeaks = ({balance, color,color2, complexity, count, volatility, wid
             return color;
     }
 
-    function pointArrayToPolygonString(pointList:PointList){
-        let pathString = "";
-        pointList.map((p)=>{
-            pathString = pathString + roundTo2(p[0] * width/100) + "," + roundTo2(p[1] * height / 100) + " ";
-        });
-        return pathString;
-    }
-
-
-
     return (
         <SvgComponent color={"rgba(0,0,0,0)"} viewBox={`0 0 ${width} ${height}`}>
             {pointLists.reverse().map((pointList,index) =>
-                <polygon points={pointArrayToPolygonString(transformPointArray(pointList,position))}
-                         fill={(draw == "fill"? colors(index):undefined)}
-                         stroke={(draw == "stroke"? colors(index):undefined)}
+                <polygon points={pointArrayToPolygonString(transformPointArray(pointList,position),height,width)}
+                         fill={(draw === "fill"? colors(index):undefined)}
+                         stroke={(draw === "stroke"? colors(index):undefined)}
                          strokeWidth={(strokeWidth? strokeWidth : 1)}
 
                 />
             )}
         </SvgComponent>
     )
-
 };
 
 export default LayeredPeaks;
