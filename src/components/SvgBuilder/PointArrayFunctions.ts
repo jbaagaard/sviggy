@@ -42,3 +42,27 @@ export const pointArrayToPolygonString = (
   );
   return pathString;
 };
+
+export const pointArrayToQuadraticPathString = (
+  pointList: PointArray,
+  height: number,
+  width: number
+) => {
+  let pathString = "M ";
+  pointList.map(
+    (p, i) =>
+      (pathString =
+        pathString +
+        (i % 2 == 0
+          ? roundTo2((p[0] * width) / 100) +
+            " " +
+            roundTo2((p[1] * height) / 100) +
+            " "
+          : "Q " +
+            roundTo2((p[0] * width) / 100) +
+            " " +
+            roundTo2((p[1] * height) / 100) +
+            " "))
+  );
+  return pathString;
+};

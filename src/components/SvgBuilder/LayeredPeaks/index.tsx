@@ -44,7 +44,6 @@ const LayeredPeaks = ({
     pointList.push([100, i * balance]);
     pointList.push([100, 0]);
     pointList.push([0, 0]);
-
     pointLists.push(pointList);
   }
 
