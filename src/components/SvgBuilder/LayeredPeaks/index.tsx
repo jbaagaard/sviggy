@@ -1,5 +1,6 @@
 import { SvgComponent } from "../SvgComponent";
 import {
+  pointArrayToCubicBezierPathString2,
   pointArrayToPolygonString,
   transformPointArray,
 } from "../PointArrayFunctions";
@@ -41,9 +42,7 @@ const LayeredPeaks = ({
       let pointX = Math.random() * volatility - volatility / 2 + i * balance;
       pointList.push([percentageOf(i2 + 1, complexity + 1), pointX]);
     }
-    pointList.push([100, i * balance]);
-    pointList.push([100, 0]);
-    pointList.push([0, 0]);
+
     pointLists.push(pointList);
   }
 
@@ -56,8 +55,8 @@ const LayeredPeaks = ({
   return (
     <SvgComponent color={"rgba(0,0,0,0)"} viewBox={`0 0 ${width} ${height}`}>
       {pointLists.reverse().map((pointList, index) => (
-        <polygon
-          points={pointArrayToPolygonString(
+        <path
+          d={pointArrayToCubicBezierPathString2(
             transformPointArray(pointList, position),
             height,
             width
