@@ -2,7 +2,7 @@ import { Draw, Position } from "../models";
 import { decode } from "../../seed-utils";
 import Peaks from "../Peaks";
 
-interface SeededLayeredPeaksProps {
+interface SeededPeaksProps {
   seed: string;
   width: number;
   height: number;
@@ -13,7 +13,7 @@ interface SeededLayeredPeaksProps {
   strokeWidth?: number;
 }
 
-type LayeredPeaksSeed = [
+type PeaksSeed = [
   count: number,
   balance: number,
   complexity: number,
@@ -30,11 +30,11 @@ const SeededPeaks = ({
   position,
   draw,
   strokeWidth,
-}: SeededLayeredPeaksProps) => {
+}: SeededPeaksProps) => {
   const [count, balance, complexity, volatility, randSeed] = decode(
     seed,
     5
-  ) as LayeredPeaksSeed;
+  ) as PeaksSeed;
 
   return (
     <Peaks
