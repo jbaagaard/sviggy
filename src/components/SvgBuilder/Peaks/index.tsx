@@ -9,7 +9,7 @@ import { Draw, PointArray, Position } from "../models";
 import { calculateColor, percentageOf } from "../helperFunctions";
 import MersenneTwister from "mersenne-twister";
 
-interface LayeredPeaksProps {
+interface PeaksProps {
   count: number;
   balance: number;
   complexity: number;
@@ -24,7 +24,7 @@ interface LayeredPeaksProps {
   seed?: number;
 }
 
-const LayeredPeaks = ({
+const Peaks = ({
   balance,
   color,
   color2,
@@ -37,7 +37,7 @@ const LayeredPeaks = ({
   draw,
   strokeWidth,
   seed = Math.random() * 1000000,
-}: LayeredPeaksProps) => {
+}: PeaksProps) => {
   const generator = new MersenneTwister(seed);
   const pointLists: PointArray[] = [];
   for (let i = 1; i < count + 1; i++) {
@@ -80,4 +80,4 @@ const LayeredPeaks = ({
   );
 };
 
-export default LayeredPeaks;
+export default Peaks;
