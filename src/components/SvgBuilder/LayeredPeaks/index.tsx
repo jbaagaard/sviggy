@@ -2,6 +2,7 @@ import { SvgComponent } from "../SvgComponent";
 import {
   pointArrayToCubicBezierPathString2,
   pointArrayToPolygonString,
+  randomPointArray,
   transformPointArray,
 } from "../PointArrayFunctions";
 import { Draw, PointArray, Position } from "../models";
@@ -40,18 +41,19 @@ const LayeredPeaks = ({
   const generator = new MersenneTwister(seed);
   const pointLists: PointArray[] = [];
   for (let i = 1; i < count + 1; i++) {
-    const pointList: PointArray = [[0, i * balance]];
+    const pointArray: PointArray = randomPointArray(
+      complexity,
+      volatility,
+      complexity * i,
+      seed,
+      generator
+    );
 
-    for (let i2 = 0; i2 < complexity; i2++) {
-      let pointX =
-        generator.random() * volatility - volatility / 2 + i * balance;
-      pointList.push([percentageOf(i2 + 1, complexity + 1), pointX]);
-    }
-    pointList.push([100, i * balance]);
-    pointList.push([100, 0]);
-    pointList.push([0, 0]);
+    pointArray.push([100, i * balance]);
+    pointArray.push([100, 0]);
+    pointArray.push([0, 0]);
 
-    pointLists.push(pointList);
+    pointLists.push(pointArray);
   }
 
   const colors = (index: number) => {

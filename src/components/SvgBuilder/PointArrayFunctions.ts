@@ -1,5 +1,6 @@
 import { PointArray, Position } from "./models";
-import { roundTo2 } from "./helperFunctions";
+import { percentageOf, roundTo2 } from "./helperFunctions";
+import MersenneTwister from "mersenne-twister";
 
 export const transformPointArray = (
   pointList: PointArray,
@@ -123,4 +124,20 @@ export const pointArrayToCubicBezierPathString2 = (
     pointList[pointList.length - 1][1];
 
   return pathString;
+};
+
+export const randomPointArray = (
+  complexity: number,
+  volatility: number,
+  height: number,
+  seed: number,
+  mersenneTwister: MersenneTwister
+) => {
+  const pointArray: PointArray = [[0, height]];
+  for (let i2 = 0; i2 < complexity; i2++) {
+    let pointX =
+      mersenneTwister.random() * volatility - volatility / 2 + height;
+    pointArray.push([percentageOf(i2 + 1, complexity + 1), pointX]);
+  }
+  return pointArray;
 };
