@@ -6,6 +6,7 @@ import {
 } from "../PointArrayFunctions";
 import { Draw, PointArray, Position } from "../models";
 import { calculateColor, percentageOf } from "../helperFunctions";
+import MersenneTwister from "mersenne-twister";
 
 interface LayeredPeaksProps {
   count: number;
@@ -19,6 +20,7 @@ interface LayeredPeaksProps {
   position: Position;
   draw: Draw;
   strokeWidth?: number;
+  seed?: number;
 }
 
 const LayeredPeaks = ({
@@ -33,15 +35,21 @@ const LayeredPeaks = ({
   position,
   draw,
   strokeWidth,
+  seed = Math.random() * 1000000,
 }: LayeredPeaksProps) => {
+  const generator = new MersenneTwister(seed);
   const pointLists: PointArray[] = [];
   for (let i = 1; i < count + 1; i++) {
     const pointList: PointArray = [[0, i * balance]];
 
     for (let i2 = 0; i2 < complexity; i2++) {
-      let pointX = Math.random() * volatility - volatility / 2 + i * balance;
+      let pointX =
+        generator.random() * volatility - volatility / 2 + i * balance;
       pointList.push([percentageOf(i2 + 1, complexity + 1), pointX]);
     }
+    pointList.push([100, i * balance]);
+    pointList.push([100, 0]);
+    pointList.push([0, 0]);
 
     pointLists.push(pointList);
   }
@@ -55,8 +63,8 @@ const LayeredPeaks = ({
   return (
     <SvgComponent color={"rgba(0,0,0,0)"} viewBox={`0 0 ${width} ${height}`}>
       {pointLists.reverse().map((pointList, index) => (
-        <path
-          d={pointArrayToCubicBezierPathString2(
+        <polygon
+          points={pointArrayToPolygonString(
             transformPointArray(pointList, position),
             height,
             width

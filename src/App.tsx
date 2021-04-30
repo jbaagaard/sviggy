@@ -2,19 +2,20 @@ import React from "react";
 import "./style.css";
 import * as S from "./app.styled";
 import LayeredPeaks from "./components/SvgBuilder/LayeredPeaks";
-import { gray, purpBlu, red } from "./style";
+import { gray, green, lightGray, purp, purpBlu, red } from "./style";
 
 function App() {
   return (
     <S.Wrapper>
       <S.SvgWrapper>
         <LayeredPeaks
-          color={purpBlu}
-          draw={"stroke"}
-          balance={2}
-          complexity={13}
-          count={20}
-          volatility={10}
+          color={green}
+          color2={gray}
+          draw={"fill"}
+          balance={5}
+          complexity={5}
+          count={10}
+          volatility={40}
           width={1389}
           height={703}
           position={"bottom"}
