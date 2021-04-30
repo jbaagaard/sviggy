@@ -15,7 +15,7 @@ interface SeededLayeredPeaksProps {
 
 type LayeredPeaksSeed = [count: number, balance: number, complexity: number, volatility: number, randSeed: number];
 
-const SeededLayeredPeaks = ({ seed, color, color2, width, height, position, draw, strokeWidth }: SeededLayeredPeaksProps) => {
+const SeededPeaks = ({ seed, color, color2, width, height, position, draw, strokeWidth }: SeededLayeredPeaksProps) => {
     const [count, balance, complexity, volatility, randSeed] = decode(seed, 5) as LayeredPeaksSeed;
 
     return (
@@ -25,4 +25,4 @@ const SeededLayeredPeaks = ({ seed, color, color2, width, height, position, draw
     );
 };
 
-export default SeededLayeredPeaks;
+export default SeededPeaks;

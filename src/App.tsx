@@ -3,7 +3,7 @@ import "./style.css";
 import * as S from "./app.styled";
 import LayeredPeaks from "./components/SvgBuilder/LayeredPeaks";
 import { gray, green, lightGray, purp, purpBlu, red } from "./style";
-import SeededLayeredPeaks from "./components/SvgBuilder/SeededLayeredPeaks";
+import SeededPeaks from "./components/SvgBuilder/SeededLayeredPeaks";
 
 function App() {
     return (
@@ -22,7 +22,7 @@ function App() {
                     position={"bottom"}
                 />
 
-                <SeededLayeredPeaks
+                <SeededPeaks
                     color={green}
                     color2={gray}
                     draw={"fill"}
