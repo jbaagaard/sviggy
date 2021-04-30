@@ -67,33 +67,7 @@ export const pointArrayToQuadraticPathString = (
     );
     return pathString;
 };
-export const pointArrayToBezierPathString = (
-    pointList: PointArray,
-    height: number,
-    width: number
-) => {
-    let pathString = "M ";
-    pointList.map(
-        (p, i) =>
-            (pathString =
-                pathString +
-                (i % 2 == 0
-                    ? roundTo2((p[0] * width) / 100) +
-                    " " +
-                    roundTo2((p[1] * height) / 100) +
-                    " "
-                    : "C " +
-                    roundTo2((p[0] * width) / 100) +
-                    " " +
-                    roundTo2((p[1] * height) / 100) +
-                    ", " +
-                    roundTo2((p[0] * width) / 100) +
-                    " " +
-                    roundTo2((p[1] * height) / 100) +
-                    ", "))
-    );
-    return pathString;
-};
+
 
 export const pointArrayToCubicBezierPathString2 = (
     pointList: PointArray,
