@@ -4,17 +4,17 @@ import * as S from "./app.styled";
 import Peaks from "./components/SvgBuilder/Peaks";
 import { gray, green, lightGray, purp, purpBlu, red } from "./style";
 import SeededPeaks from "./components/SvgBuilder/SeededPeaks";
+import Waves from "./components/SvgBuilder/Waves";
 
 function App() {
   return (
     <S.Wrapper>
       <S.SvgWrapper>
-        <Peaks
+        <Waves
           color={green}
-          color2={gray}
-          draw={"fill"}
-          balance={5}
-          complexity={5}
+          draw={"stroke"}
+          balance={40}
+          complexity={6}
           count={10}
           volatility={40}
           width={1389}
