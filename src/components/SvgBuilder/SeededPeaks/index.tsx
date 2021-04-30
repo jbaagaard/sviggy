@@ -1,16 +1,10 @@
 import { Draw, Position } from "../models";
 import { decode } from "../../seed-utils";
 import Peaks from "../Peaks";
+import SvgProps from "../../../svg-props";
 
-interface SeededLayeredPeaksProps {
+interface SeededLayeredPeaksProps extends SvgProps {
 	seed: string;
-	width: number;
-	height: number;
-	color: string;
-	color2?: string;
-	position: Position;
-	draw: Draw;
-	strokeWidth?: number;
 }
 
 type LayeredPeaksSeed = [

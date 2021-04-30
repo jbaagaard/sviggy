@@ -1,28 +1,22 @@
 import { SvgComponent } from "../SvgComponent";
 import {
-	pointArrayToCubicBezierPathString2,
 	pointArrayToPolygonString,
 	randomPointArray,
 	transformPointArray,
 } from "../PointArrayFunctions";
-import { Draw, PointArray, Position } from "../models";
-import { calculateColor, percentageOf } from "../helperFunctions";
+import { PointArray } from "../models";
+import { calculateColor } from "../helperFunctions";
 import MersenneTwister from "mersenne-twister";
+import SvgProps from "../../../svg-props";
 
-interface PeaksProps {
+interface PeaksProps extends SvgProps {
 	count: number;
 	balance: number;
 	complexity: number;
 	volatility: number;
-	width: number;
-	height: number;
-	color: string;
-	color2?: string;
-	position: Position;
-	draw: Draw;
-	strokeWidth?: number;
 	seed?: number;
 }
+
 
 const Peaks = ({
 	balance,
