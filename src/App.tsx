@@ -3,7 +3,7 @@ import "./style.css";
 import * as S from "./app.styled";
 import LayeredPeaks from "./components/SvgBuilder/LayeredPeaks";
 import { gray, green, lightGray, purp, purpBlu, red } from "./style";
-import SeededPeaks from "./components/SvgBuilder/SeededLayeredPeaks";
+import SeededPeaks from "./components/SvgBuilder/SeededPeaks";
 
 function App() {
     return (
