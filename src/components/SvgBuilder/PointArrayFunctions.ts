@@ -94,6 +94,7 @@ export const pointArrayToBezierPathString = (
     );
     return pathString;
 };
+
 export const pointArrayToCubicBezierPathString2 = (
     pointList: PointArray,
     height: number,
