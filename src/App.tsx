@@ -11,9 +11,10 @@ function App() {
     <S.Wrapper>
       <S.SvgWrapper>
         <Waves
-          color={green}
-          draw={"stroke"}
-          balance={40}
+          color={red}
+          color2={gray}
+          draw={"fill"}
+          balance={5}
           complexity={6}
           count={10}
           volatility={40}
