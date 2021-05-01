@@ -27,10 +27,10 @@ function App() {
           color={green}
           color2={gray}
           draw={"fill"}
-          seed={"MTA7NTs1OzQwOzc4NTQz"}
-          width={1389}
-          height={703}
-          position={"bottom"}
+          seed={"WzEwLDUsNSw0MCw3ODU0M10="}
+          width={document.body.clientWidth}
+          height={document.body.clientHeight}
+          position={"right"}
         />
       </S.SvgWrapper>
     </S.Wrapper>

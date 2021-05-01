@@ -67,7 +67,7 @@ const Peaks = ({
 					)}
 					fill={draw === "fill" ? colors(index) : undefined}
 					stroke={draw === "stroke" ? colors(index) : undefined}
-					strokeWidth={strokeWidth ? strokeWidth : 1}
+					strokeWidth={strokeWidth || 1}
 				/>
 			))}
 		</SvgComponent>
